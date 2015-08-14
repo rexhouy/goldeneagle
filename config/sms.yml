@@ -1,0 +1,26 @@
+development:
+  host: "app.cloopen.com"
+  port: "8883"
+  url: "/2013-12-26/Accounts/<%= ENV['GOLDEN_EAGLE_SMS_ACCOUNT_ID'] %>/SMS/TemplateSMS"
+  auth_token: <%= ENV['GOLDEN_EAGLE_SMS_AUTH_TOKEN'] %>
+  app_id: <%= ENV['GOLDEN_EAGLE_SMS_APP_ID'] %>
+  account_id: <%= ENV['GOLDEN_EAGLE_SMS_ACCOUNT_ID'] %>
+  template_id: 29212
+
+test:
+  host: "sandboxapp.cloopen.com"
+  port: "8883"
+  url: "/2013-12-26/Accounts/<%= ENV['GOLDEN_EAGLE_SMS_ACCOUNT_ID'] %>/SMS/TemplateSMS"
+  auth_token: <%= ENV['GOLDEN_EAGLE_SMS_AUTH_TOKEN'] %>
+  app_id: <%= ENV['GOLDEN_EAGLE_SMS_APP_ID'] %>
+  account_id: <%= ENV['GOLDEN_EAGLE_SMS_ACCOUNT_ID'] %>
+  template_id: 29212
+
+production:
+  host: "app.cloopen.com"
+  port: "8883"
+  url: "/2013-12-26/Accounts/<%= ENV['GOLDEN_EAGLE_SMS_ACCOUNT_ID'] %>/SMS/TemplateSMS"
+  auth_token: <%= ENV['GOLDEN_EAGLE_SMS_AUTH_TOKEN'] %>
+  app_id: <%= ENV['GOLDEN_EAGLE_SMS_APP_ID'] %>
+  account_id: <%= ENV['GOLDEN_EAGLE_SMS_ACCOUNT_ID'] %>
+  template_id: 29212

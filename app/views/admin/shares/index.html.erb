@@ -1,0 +1,31 @@
+<div>
+  <ul style="list-style:none;margin:0;overflow:hidden;padding:0;">
+    <li style="float:left;margin-right:20px;"><a href="/admin/shares?filter=0">等待审核</a></li>
+    <li style="float:left;margin-right:20px;"><a href="/admin/shares?filter=1">审核通过</a></li>
+    <li style="float:left;margin-right:20px;"><a href="/admin/shares?filter=2">审核拒绝</a></li>
+    <li style="float:left;margin-right:20px;"><a href="/admin/shares">全部</a></li>
+  </ul>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>昵称</th>
+      <th>电话</th>
+      <th>内容</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @shares.each do |share| %>
+    <tr>
+      <td><%= share.name %></td>
+      <td><%= share.tel %></td>
+      <td><%= share.content %></td>
+      <td><%= status share %></td>
+      <td><%= link_to "查看", [:admin, share] %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @shares, page_links: false %>

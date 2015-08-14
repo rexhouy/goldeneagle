@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="<%=image_url('favicon.ico')%>" rel="icon">
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= csrf_meta_tags %>
+    <title>金鹰</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/admin/">金鹰</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <% unless @menus.nil? %>
+          <ul class="nav navbar-nav">
+            <% @menus.each do |menu| %>
+            <li class="<%=menu[:class]%>"><%= link_to menu[:text], menu[:url] %></li>
+            <% end %>
+          </ul>
+          <% end %>
+          <ul class="nav navbar-nav navbar-right">
+            <% if user_signed_in?%>
+            <li><%= link_to "注销", destroy_user_session_url, method: :delete %></li>
+            <% else %>
+            <li><%= link_to "登录", user_session_url %></li>
+            <% end %>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+  <%= javascript_include_tag 'application' %>
+</html>

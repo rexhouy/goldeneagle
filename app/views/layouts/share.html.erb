@@ -1,0 +1,24 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>金鹰</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <link href="<%=image_url('favicon.ico')%>" rel="icon">
+    <%= stylesheet_link_tag 'shares', media: 'all', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header>
+    </header>
+
+    <%= yield %>
+
+    <footer>
+      <%= image_tag "footer.png"%>
+    </footer>
+
+    <%= javascript_include_tag 'shares' %>
+  </body>
+</html>

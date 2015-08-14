@@ -1,0 +1,81 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>金鹰</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <link href="<%=image_url('favicon.ico')%>" rel="icon">
+    <%= stylesheet_link_tag "lottery", media: "all", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%=image_tag "spinner.gif", style: "width:1px;height:1px;"%>
+    <div class="spinner">
+      <span><%=image_tag "spinner.gif"%></span>
+    </div>
+
+    <article>
+      <header>
+        <%= image_tag "header.png"%>
+      </header>
+
+      <section style="text-align:center">
+        <div class="login-form">
+          <ul>
+            <li>输入手机号码</li>
+            <li><input type="tel" id="tel" name="tel" style="width: 40%;"></li>
+            <li>短信验证码</li>
+            <li><button style="width:35%;" id="get_captcha" onclick="return getCaptcha();">获取验证码</button></li>
+            <li><input type="text" id="captcha" name="captcha" style="width:35%;"></li>
+            <li onclick="return signIn();"><%= image_tag "go.png" %></li>
+          </ul>
+        </div>
+      </section>
+
+      <footer>
+        <%= image_tag "footer1.png"%>
+      </footer>
+    </article>
+
+    <article class="hidden">
+      <header>
+        <%= image_tag "logo.png"%>
+      </header>
+
+      <section>
+        <div style="width: 60%;margin:5px auto;text-align:center;">
+          <div id="ins_title" style="position:fixed;width: 60%;z-index: 99999;color:#d0211c;">
+            <p>8月20日15:00  20:00 各250份  抢完即止</p>
+          </div>
+          <%= image_tag "win.png", style: "width:90%;opacity:0;", id:"win" %>
+          <div style="margin-top:10px;position:relative;">
+            <div style="position:absolute;width:100%;top:10px;color:#d0211c;" id="">
+              <div style="font-size:50px;" id="money"></div>
+              <div style="font-size:20px;position:relative;top:-10px;">元</div>
+            </div>
+            <div onclick="openEnvelope();">
+              <%= image_tag "cover.png", class: "cover" %>
+              <%= image_tag "bag-open.png" %>
+            </div>
+          </div>
+        </div>
+        <div class="instruction">
+          <h2>使用细则：</h2>
+          <ol>
+            <li>1. 顾客凭抽奖手机号码至金鹰B座顾服中心兑换等值金额通用券</li>
+            <li>2. 通用券A/B座全场通用，特殊品类除外</li>
+            <li>3. 通用券遗失不补，不兑换现金</li>
+            <li>4. 通用券有效期至2015年8月23日</li>
+          </ol>
+        </div>
+      </section>
+
+      <footer>
+        <%= image_tag "footer.png"%>
+      </footer>
+    </article>
+
+    <%= javascript_include_tag "lottery" %>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>金鹰</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <link href="<%=image_url('favicon.ico')%>" rel="icon">
+    <%= stylesheet_link_tag 'screen', media: 'all' %>
+    <style>
+    </style>
+  </head>
+  <body>
+    <section>
+      <div class="cm-top"></div>
+      <div class="cm-bottom"></div>
+    </section>
+    <section id="section_1" class="share" style="left:408px;">
+      <% @share1 = Share.new if @share1.nil? %>
+      <h1 id="name_1"><%=@share1.name%></h1>
+      <p id="content_1"><%=@share1.content%></p>
+      <%= image_tag @share1.image_1, id: "image_1" %>
+      <input type="hidden" id="duration_1" value="<%=@share1.duration%>">
+    </section>
+    <section id="section_2" class="share" style="left:757px;">
+      <% @share2 = Share.new if @share2.nil? %>
+      <h1 id="name_2"><%=@share2.name%></h1>
+      <p id="content_2"><%=@share2.content%></p>
+      <%= image_tag @share2.image_1, id: "image_2" %>
+      <input type="hidden" id="duration_2" value="<%=@share2.duration%>">
+    </section>
+    <section class="block-layer">
+    </section>
+    <%= javascript_include_tag 'screen' %>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<h2>登录</h2>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="form-group">
+    <label>用户名</label>
+    <%= f.text_field :name, autofocus: true, class: "form-control", style: "width:300px;" %>
+  </div>
+  <br>
+  <div class="form-group">
+    <label>密码</label<br />
+    <%= f.password_field :password, autocomplete: "off", class: "form-control", style: "width:300px;" %>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div class="field">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
+    </div>
+  <% end -%>
+
+  <div class="actions">
+    <%= f.submit "确认", class: "btn btn-success" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>

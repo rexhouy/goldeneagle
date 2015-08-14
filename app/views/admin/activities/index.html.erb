@@ -1,0 +1,34 @@
+<ul class="bg-info" style="padding: 15px 40px;">
+  <li>
+    15：00奖池总数：<%=@pool_1_size%>， 已中奖人数：<%=@lottery_pool_1%>，剩余奖品数量：<%=@pool_1_size - @lottery_pool_1%>
+  </li>
+  <li>
+    20：00奖池总数：<%=@pool_2_size%>， 已中奖人数：<%=@lottery_pool_2%>，剩余奖品数量：<%=@pool_2_size - @lottery_pool_2%>
+  </li>
+  <li>
+    已兑奖人数：<%=@claim_count%>
+  </li>
+</ul>
+<table class="table">
+  <thead>
+    <tr>
+      <th>电话</th>
+      <th>奖品</th>
+      <th>状态</th>
+      <th>中奖时间</th>
+      <th>兑奖时间</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @prizes.each do |prize| %>
+    <tr>
+      <td><%= prize.tel %></td>
+      <td><%= prize.prize %>元</td>
+      <td><%= prize_status prize %></td>
+      <td><%= readable_time prize.time %></td>
+      <td><%= readable_time prize.claim_time %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @prizes, page_links: false %>

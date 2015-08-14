@@ -1,0 +1,79 @@
+// Place all the styles related to the shares controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+//= require_self
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+html, body {
+    background-color: #FFF001;
+    min-height: 100%;
+}
+
+header {
+    height: 50px;
+    background-image: image_url("logo.png");
+    background-repeat: no-repeat;
+}
+
+footer {
+    margin-top: 50px;
+}
+img {
+    max-width: 100%;
+}
+img.preview {
+    width: 90px;
+    max-height: 90px;
+}
+input {
+    background-color:#fffaa4;
+    border: 1px solid #c8be43;
+    outline: none;
+    padding: 5px 10px;
+    font-size: 20px;
+}
+label {
+    font-size: 22px;
+}
+.input-group {
+    margin: 20px auto;
+    text-align: center;
+}
+
+.confirm-btn {
+    border:0;
+    outline:0;
+    background: image_url('send.png');
+    background-repeat:no-repeat;
+    height:30px;
+    width:50px;
+    margin-top:5px;
+}
+
+.send-btn {
+    border:0;
+    outline:0;
+    background: image_url('send.png');
+    background-repeat:no-repeat;
+    height:30px;
+    width:50px;
+    margin-top:5px;
+}
+
+.table > tbody > tr > td {
+    border-top: 1px solid #555 !important;
+}
+
+.previous_page, .next_page {
+    background: #fffaa4;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    display: inline-block;
+    padding: 5px 14px;
+    span {
+        background: #fffaa4 !important;
+        font-size: 16px;
+        font-weight: bold;
+    }
+}

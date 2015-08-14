@@ -19,7 +19,7 @@ class LotteryController < ApplicationController
                         prize.code = random_captcha
                         prize.save
                 end
-                # SmsService.new.send_captcha(prize.tel, prize.code)
+                SmsService.new.send_captcha(prize.tel, prize.code)
                 render json: {result: "ok"}
         end
 

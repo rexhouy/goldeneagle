@@ -18,6 +18,8 @@
                         $.each(files, function(index, file) {
                                 data.append("file", file, file.name);
                         });
+                        $(".block-layer").show();
+                        $(".block-layer-text").show();
                         $.ajax({
                                 url: "/images",
                                 type: 'POST',
@@ -30,6 +32,8 @@
                                         images.push(data.filelink);
                                         $("#image_"+images.length).val(data.filelink);
                                         $("#preview_"+images.length).attr("src", data.filelink).show();
+                                        $(".block-layer").hide();
+                                        $(".block-layer-text").hide();
                                 }
                         });
                 };

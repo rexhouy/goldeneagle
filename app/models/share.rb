@@ -18,7 +18,7 @@ class Share < ActiveRecord::Base
         end
 
         def self.filter(status)
-                return all if status.nil?
+                status = 0 if status.nil?
                 where(status: status)
         end
 

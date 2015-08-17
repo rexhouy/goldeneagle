@@ -54,21 +54,19 @@
                                 try {
                                         refresh();
                                 } catch(e) {
-                                        alert("...");
                                         self.register();
                                 }
                         }, d*1000);
                 };
-
                 return self;
         };
 
         var share1 = share(1);
         var share2 = share(2);
 
-        $(function(){
+        window.onload = function() {
                 share1.register();
                 share2.register();
-        });
+        };
 
 })();

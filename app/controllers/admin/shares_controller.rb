@@ -11,8 +11,14 @@ class Admin::SharesController < AdminController
                 end
         end
 
+        def duration_all
+                PlaylistService.duration = params[:duration] || 20
+                render plain: "ok"
+        end
+
         def index
                 @shares = Share.filter(params[:filter]).paginate(:page => params[:page])
+                @duration = PlaylistService.duration
         end
 
         def show

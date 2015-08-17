@@ -33,6 +33,7 @@ Rails.application.routes.draw do
                 get "shares/:id" => "shares#show", as: :share
                 post "shares/pass/:id" => "shares#pass"
                 post "shares/reject/:id" => "shares#reject"
+                post "shares/duration/all" => "shares#duration_all"
                 post "shares/duration/:id" => "shares#duration"
 
                 resources :users

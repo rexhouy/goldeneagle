@@ -4,6 +4,11 @@
     <li style="float:left;margin-right:20px;"><a href="/admin/shares?filter=1">审核通过</a></li>
     <li style="float:left;margin-right:20px;"><a href="/admin/shares?filter=2">审核拒绝</a></li>
     <li style="float:left;margin-right:20px;"><a href="/admin/shares">全部</a></li>
+    <li class="form-group pull-right">
+      <label>播放时常：</label>
+      <%=number_field_tag "duration", @duration, min: 10, max: 1000, step: 1, class: "form-control", style:"display: inline-block;width: inherit;"%>
+      <button onclick="updateDurationAll()" class="btn btn-success">更新</button>
+    </li>
   </ul>
 </div>
 <table class="table">

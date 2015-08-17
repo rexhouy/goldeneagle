@@ -1,6 +1,6 @@
 class PlaylistService
 
-        @@duration = 10
+        @@duration = 20
         @@playlist = []
         @@waitinglist = []
 

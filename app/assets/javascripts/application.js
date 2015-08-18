@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap-sprockets
 
 (function() {
         window.updateDurationAll = function() {
@@ -32,26 +33,5 @@
                         alert("修改成功");
                 });
         };
-        window.updateDuration = function(id) {
-                var duration = $("#duration").val();
-                if (!duration || isNaN(duration) || duration <= 0 || duration > 1000) {
-                        alert("请输入一个正确的值");
-                        return false;
-                }
-                $.ajax({
-                        url: "/admin/shares/duration/"+id,
-                        type: 'POST',
-                        data: {
-                                duration: duration
-                        },
-                        cache: false
-                }).done(function(){
-                        alert("修改成功");
-                });
-        };
-        $(function(){
-                setTimeout(function(){
-                        window.location.reload();
-                }, 20*1000);
-        });
+
 })();

@@ -1,0 +1,30 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="application/vnd.ms-excel; charset=UTF-8">
+<title>中奖情况</title>
+</head>
+<body>
+<table class="table table-hover">
+        <thead>
+                <tr>
+                        <th>手机号</th>
+                        <th>客户姓名</th>
+                        <th>奖品</th>
+                        <th>中奖时间</th>
+                        <th>兑奖情况</th>
+                        <th>兑奖时间</th>
+                </tr>
+        </thead>
+        <% @prizes.each do |prize| %>
+        <tr>
+          <td><%= prize.tel %></td>
+          <td><%= prize.name %></td>
+          <td><%= prize.prize %>元</td>
+          <td><%= prize_status prize %></td>
+          <td><%= readable_time prize.time %></td>
+          <td><%= readable_time prize.claim_time %></td>
+        </tr>
+        <% end %>
+</table>
+</body>
+</html>

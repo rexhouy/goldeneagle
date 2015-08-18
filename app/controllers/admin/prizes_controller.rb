@@ -14,6 +14,7 @@ class Admin::PrizesController < AdminController
 
         def claim
                 @prize = Prize.find(params[:id])
+                @prize.name = params[:name]
                 @prize.claim_time = Time.now
                 @prize.status = Prize.statuses[:claimed]
                 @prize.save!

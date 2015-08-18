@@ -11,8 +11,8 @@ Rails.application.routes.draw do
         #   get 'products/:id' => 'catalog#view'
 
         ## 大屏分享
-        get "shares" => "shares#index"
-        get "shares/new" => "shares#new"
+        get "shares" => "shares#new"
+        get "shares/index" => "shares#index"
         get "shares/search" => "shares#search"
         get "shares/:id" => "shares#show", as: :share
         post "shares" => "shares#create"
@@ -30,17 +30,20 @@ Rails.application.routes.draw do
         namespace :admin do
                 get "shares" => "shares#index", as: :shares
                 get "shares/screen" => "shares#screen"
+                get "shares/search" => "shares#search"
                 get "shares/:id" => "shares#show", as: :share
-                post "shares/pass/:id" => "shares#pass"
-                post "shares/reject/:id" => "shares#reject"
+                post "shares/check/:id" => "shares#check"
                 post "shares/duration/all" => "shares#duration_all"
-                post "shares/duration/:id" => "shares#duration"
 
                 resources :users
-                resources :activities
                 get "prizes" => "prizes#index"
                 get "prizes/search" => "prizes#search"
                 post "prizes/claim/:id" => "prizes#claim"
+
+                get "activities" => "activities#index"
+                get "activities/export" => "activities#export"
+                get "activities/search" => "activities#search"
+
                 root "home#index"
         end
 

@@ -17,8 +17,20 @@ class Admin::SharesController < AdminController
         end
 
         def index
-                @shares = Share.filter(params[:filter]).paginate(:page => params[:page])
+                search
+        end
+
+        def search
+                @search_text = params[:search_text]
+                if @search_text
+                        @shares = Share.where("tel = ? or name = ?", @search_text, @search_text)
+                else
+                        @shares = Share.filter(params[:filter]).paginate(:page => params[:page])
+                end
                 @duration = PlaylistService.duration
+                @filter = params[:filter]
+                @refresh = params[:refresh] || 10
+                render :index
         end
 
         def show
@@ -33,6 +45,12 @@ class Admin::SharesController < AdminController
                 render plain: "ok"
         end
 
+        def check
+                return pass if params[:pass]
+                reject
+        end
+
+        private
         def pass
                 update_status params[:id], Share.statuses[:passed]
                 PlaylistService.add(@share)
@@ -43,12 +61,11 @@ class Admin::SharesController < AdminController
                 PlaylistService.remove(@share)
         end
 
-        private
         def update_status(id, status)
                 @share = Share.find(id)
                 @share.status = status
-                @share.save
-                @share.duration ||= PlaylistService.duration
+                @share.duration = params[:duration] || PlaylistService.duration
+                @share.save!
                 render :show
         end
 

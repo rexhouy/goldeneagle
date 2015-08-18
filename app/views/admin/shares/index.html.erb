@@ -1,36 +1,87 @@
-<div>
+<div class="row">
+  <%= hidden_field_tag "filter", @filter%>
   <ul style="list-style:none;margin:0;overflow:hidden;padding:0;">
-    <li style="float:left;margin-right:20px;"><a href="/admin/shares?filter=0">等待审核</a></li>
-    <li style="float:left;margin-right:20px;"><a href="/admin/shares?filter=1">审核通过</a></li>
-    <li style="float:left;margin-right:20px;"><a href="/admin/shares?filter=2">审核拒绝</a></li>
-    <li style="float:left;margin-right:20px;"><a href="/admin/shares">全部</a></li>
-    <li class="form-group pull-right">
-      <label>播放时常：</label>
-      <%=number_field_tag "duration", @duration, min: 10, max: 1000, step: 1, class: "form-control", style:"display: inline-block;width: inherit;"%>
-      <button onclick="updateDurationAll()" class="btn btn-success">更新</button>
-    </li>
+    <li style="float:left;margin-right:20px;"><a href="/admin/shares?filter=0&refresh=<%=@refresh%>">等待审核</a></li>
+    <li style="float:left;margin-right:20px;"><a href="/admin/shares?filter=1&refresh=<%=@refresh%>">审核通过</a></li>
+    <li style="float:left;margin-right:20px;"><a href="/admin/shares?filter=2&refresh=<%=@refresh%>">审核拒绝</a></li>
+    <li style="float:left;margin-right:20px;"><a href="/admin/shares?filter=all&refresh=<%=@refresh%>">全部</a></li>
   </ul>
 </div>
-<table class="table">
-  <thead>
-    <tr>
-      <th>昵称</th>
-      <th>电话</th>
-      <th>内容</th>
-      <th>状态</th>
-      <th>操作</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @shares.each do |share| %>
-    <tr>
-      <td><%= share.name %></td>
-      <td><%= share.tel %></td>
-      <td><%= share.content %></td>
-      <td><%= status share %></td>
-      <td><%= link_to "查看", [:admin, share] %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row form-inline" style="margin-top:10px;margin-bottom:10px;">
+  <form class="col-sm-4 col-xs-12" action="/admin/shares/search" target="_shares_search">
+    <label>搜索：</label>
+    <div class="input-group">
+      <input type="text" class="form-control" name="search_text" value="<%=@search_text%>" placeholder="电话号码或昵称" required>
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+      </span>
+    </div>
+  </form>
+  <div class="col-sm-4 col-xs-12">
+    <label>刷新频率：</label>
+    <div class="input-group">
+      <%=number_field_tag "refresh", @refresh, min: 10, max: 1000, step: 1, class: "form-control"%>
+      <span class="input-group-addon">秒</span>
+    </div>
+  </div>
+  <div class="col-sm-4 col-xs-12">
+    <label>播放时长：</label>
+    <div class="input-group">
+      <%=number_field_tag "duration", @duration, min: 10, max: 1000, step: 1, class: "form-control"%>
+      <span class="input-group-addon">秒</span>
+      <span class="input-group-btn">
+        <button onclick="updateDurationAll()" class="btn btn-success">更新</button>
+      </span>
+    </div>
+
+  </div>
+
+</div>
+<div class="row">
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>昵称</th>
+          <th>电话</th>
+          <th>内容</th>
+          <th>状态</th>
+          <th>点赞数</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @shares.each do |share| %>
+          <tr>
+            <td><%= share.name %></td>
+            <td><%= share.tel %></td>
+            <td><%= share.content %></td>
+            <td><%= status share %></td>
+            <td><%= share.fav %></td>
+            <td><%= link_to "查看", [:admin, share] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% unless @search_text %>
 <%= will_paginate @shares, page_links: false %>
+<script type="text/javascript">
+  window.onload = function() {
+                var refresh = document.getElementById("refresh").value;
+                  if (!refresh || isNaN(refresh)) {
+                        refresh = 10;
+                }
+                if (refresh < 5) {
+                        refresh = 5;
+                }
+                setTimeout(function() {
+                        var url = "/admin/shares?"
+                        url += "filter="+document.getElementById("filter").value
+                        url += "&refresh="+document.getElementById("refresh").value
+                        window.location.href = url;
+                }, refresh*1000);
+  };
+</script>
+<% end %>

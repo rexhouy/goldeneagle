@@ -1,41 +1,37 @@
-<div class="form-horizontal">
+<form class="form-horizontal" action="/admin/shares/check/<%=@share.id%>" method="POST">
   <div class="form-group">
     <label class="col-sm-2 control-label">昵称</label>
     <div class="col-sm-8">
-      <p style="position:relative;top:7px;"><%=@share.name%></p>
+      <p class="form-control-static"><%=@share.name%></p>
     </div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">电话</label>
     <div class="col-sm-8">
-      <p style="position:relative;top:7px;"><%=@share.tel%></p>
+      <p class="form-control-static"><%=@share.tel%></p>
     </div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">状态</label>
     <div class="col-sm-8">
-      <p style="position:relative;top:7px;"><%=status @share%></p>
+      <p class="form-control-static"><%=status @share%></p>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">播放时长</label>
-    <div class="col-sm-2">
-      <%= text_field_tag "duration", @share.duration, class: "form-control" %>
-    </div>
-    <div class="col-sm-8">
-      <button class="btn btn-default" onclick="updateDuration(<%=@share.id%>)">修改</button>
+    <label class="col-sm-2 col-xs-12 control-label">播放时长</label>
+    <div class="col-sm-2 col-xs-6">
+      <div class=" input-group">
+        <%= text_field_tag "duration", @share.duration, class: "form-control" %>
+        <span class="input-group-addon">秒</span>
+      </div>
     </div>
   </div>
 
   <div class="form-group">
-    <div class="col-sm-offset-2">
-      <%=link_to "/admin/shares/pass/#{@share.id}", method: "post", class: "btn btn-success" do %>
-        <span class='glyphicon glyphicon-ok'></span> 通过
-      <% end %>
+    <div class="col-sm-offset-2 col-sm-10">
+      <%=submit_tag "通过", name: "pass", class: "btn btn-success"%>
       &nbsp;&nbsp;&nbsp;&nbsp;
-      <%=link_to "/admin/shares/reject/#{@share.id}", method: "post", class: "btn btn-danger" do %>
-        <span class='glyphicon glyphicon-remove'></span> 拒绝
-      <% end %>
+      <%=submit_tag "拒绝", name: "reject", class: "btn btn-danger"%>
       &nbsp;&nbsp;&nbsp;&nbsp;
       <%=link_to "/admin/shares", class: "btn btn-default" do %>
         <span class='glyphicon glyphicon-arrow-left'></span> 返回
@@ -43,9 +39,10 @@
     </div>
   </div>
 
-  <div class="share">
+  <div class="share" style="max-width: 100%;">
     <h1><%=@share.name%></h1>
     <p class="content"><%=@share.content%><p>
         <img src="<%=@share.image_1%>" />
   </div>
-</div>
+
+</form>

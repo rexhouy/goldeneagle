@@ -24,10 +24,7 @@
                 };
 
                 self.registerLoadEvent = function(callback, reload) {
-                        $(image).bind("load", callback).bind("error", function() {
-                                $(this).unbind("load", callback);
-                                reload();
-                        });
+                        $(image).bind("load", callback);
                 };
 
                 self.unbindLoadEvent = function(callback) {

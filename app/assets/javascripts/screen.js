@@ -1,7 +1,7 @@
 //= require jquery
 (function(){
 
-        var share = function(id) {
+        var item = function(id) {
                 var self = {};
                 var section = "#section_"+id;
                 var name = "#name_"+id;
@@ -9,7 +9,38 @@
                 var image = "#image_"+id;
                 var duration = "#duration_"+id;
 
-                var refresh = function() {
+                self.section = $(section);
+
+                self.duration = function() {
+                        $(duration).val();
+                };
+
+                self.setContent = function(data) {
+                        console.log(data);
+                        $(name).html(data.name);
+                        $(content).html(data.content);
+                        $(image).attr("src", data.image_1);
+                        $(image).attr("duration", data.duration);
+                };
+
+                self.registerLoadEvent = function(callback) {
+                        $(image).one("load", callback);
+                };
+
+                return self;
+        };
+
+        var share = function(id) {
+                var self = {};
+                var f = item(id);
+                var b = item(id+2);
+
+                var log = function(data) {
+                        console.log(id + " " + data);
+                };
+
+                var load = function(data) {
+                        log("started to load.");
                         $.ajax({
                                 url: "/admin/shares/screen.json",
                                 type: 'GET',
@@ -18,41 +49,54 @@
                                 processData: false, // Don't process the files
                                 contentType: false,
                                 success: function(data) {
-                                        if (data) {
-                                                show(data);
-                                        }
-                                        self.register();
+                                        log("data loaded.");
+                                        b.setContent(data);
+                                        b.registerLoadEvent(imageLoad);
+                                        swapFrontBack();
+                                        setPosition();
+                                        setZindex();
+                                        log("Position & Index reset");
                                 },
                                 error: function() {
                                         self.register();
                                 }
                         });
                 };
-                var show = function(data) {
-                        var old = $(section);
-                        var template = old.clone();
-                        old.css("z-index", 999);
-                        template.find(name).html(data.name);
-                        template.find(content).html(data.content);
-                        template.find(image).attr("src", data.image_1).one("load", function(){
-                                template.find(duration).val(data.duration);
-                                showAnimation(template, old);
-                        });
+
+                var setZindex = function() {
+                        f.section.css("z-index", "10");
+                        b.section.css("z-index", "1");
                 };
-                var showAnimation = function(template, old) {
-                        template.appendTo($(document.body));
-                        old.animate({
+
+                var setPosition = function() {
+                        f.section.css("top", "42px");
+                        b.section.css("top", "42px");
+                };
+
+                var swapFrontBack = function() {
+                        var tmp = f;
+                        f = b;
+                        b = tmp;
+                };
+
+                var imageLoad = function() {
+                        log("Image loaded");
+                        move();
+                        self.register();
+                };
+
+                var move = function() {
+                        f.section.animate({
                                 top: "600px"
-                        }, 1000, function(){
-                                old.remove();
-                        });
+                        }, 1000);
                 };
 
                 self.register = function() {
-                        var d = $(duration).val() || 5;
+                        var d = f.duration() || 5;
+                        log("register duration ["+d+"]");
                         setTimeout(function(){
                                 try {
-                                        refresh();
+                                        load();
                                 } catch(e) {
                                         self.register();
                                 }

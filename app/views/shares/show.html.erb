@@ -1,5 +1,5 @@
 <section class="container">
-  <div style="border:2px solid #000;margin:15px auto;padding: 20px;">
+  <div style="border:2px solid #000;margin:15px auto;padding: 20px;overflow:hidden;">
     <h2 style="margin-top:0;"><%=@share.name%></h2>
     <p><%=@share.content%></p>
     <div style="text-align:center;">
@@ -11,8 +11,8 @@
   </div>
   <div class="pull-right" style="width:90px;height:30px;display:table;background:#fffaa4;padding:10px;" onclick="good(<%=@share.id%>)">
     <span class="glyphicon glyphicon-thumbs-up" style="font-size:20px;display:table-cell;vertical-align:middle;"></span>
-    <span id="like" style="font-size:16px;"><%=@share.fav%></span>
+    <span id="like_<%=@share.id%>" style="font-size:16px;"><%=@share.fav%></span>
   </div>
   <br>
-  <a style="display:block;margin:3px 0;" href="/shares">查看所有分享</a>
+  <a style="display:block;margin:3px 0;" href="/shares/index">查看所有分享</a>
 </section>

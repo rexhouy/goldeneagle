@@ -1,12 +1,14 @@
+<div style="background:#fffaa4;text-align:center;border:1px solid #111;overflow:hidden;margin-left:15px;margin-right:15px;margin-top:5px;">
+  <a class="col-xs-6" style="padding: 3px;text-decoration: none;background:#111;color:#fff;" href="#">所有分享</a>
+  <a class="col-xs-6" style="padding: 3px;text-decoration: none;color:#111;" href="/shares">我要分享</a>
+</div>
 <section class="container">
-  <h2 style="font-size:20px;font-weight:bold;margin-bottom:0;">大屏分享</h2>
-  <a href="/shares/new" class="pull-right" style="color:#000;position:relative;top:-20px;"><span class="glyphicon glyphicon-share"></span> 参与分享</a>
   <form method="GET" action="/shares/search">
     <div class="input-group">
       <span class="input-group-btn">
         <button style="background:#fffaa4;" class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
       </span>
-      <input name="tel" type="tel" style="background:#fffaa4;" class="form-control" placeholder="手机号码" value="<%=@tel%>">
+      <input name="tel" type="tel" style="background:#fffaa4;" class="form-control" placeholder="手机号码/昵称" value="<%=@tel%>">
     </div>
   </form>
   <table class="table">
@@ -19,10 +21,15 @@
       <thead>
         <tbody>
           <% @shares.each do |share| %>
-            <tr onclick="window.location.href='/shares/<%=share.id%>'">
-              <td><%=share.name%></td>
-              <td><%=share.content%></td>
-              <td><i style="color:#000;" class="glyphicon glyphicon-chevron-right"></i></td>
+            <tr>
+              <td onclick="window.location.href='/shares/<%=share.id%>'"><%=share.name%></td>
+              <td onclick="window.location.href='/shares/<%=share.id%>'"><%=share.content%></td>
+              <td onclick="good(<%=share.id%>)">
+                <div  style="background:#fffaa4;padding: 3px 3px 1px 3px;min-width:50px;">
+                  <i style="color:#000;" class="glyphicon glyphicon-thumbs-up"></i>
+                  <span id="like_<%=share.id%>" class="pull-right"><%=share.fav%></span>
+                </div>
+              </td>
             </tr>
             <% end%>
         </tbody>

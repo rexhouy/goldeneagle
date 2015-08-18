@@ -42,14 +42,22 @@
         }();
 
         window.uploader = uploader;
-        var like = false;
+        var like = [];
+        var include = function(list, val) {
+                for (var i = 0; i < list.length; i++) {
+                        if (list[i] ==val) {
+                                return true;
+                        }
+                }
+                return false;
+        };
         window.good = function(id) {
-                if (like) {
+                if (include(like, id)) {
                         return false;
                 }
-                var value = $("#like").html();
-                $("#like").html(parseInt(value)+1);
-                like = true;
+                var value = $("#like_"+id).html();
+                $("#like_"+id).html(parseInt(value)+1);
+                like.push(id);
                 $.ajax({
                         url: "/shares/like/"+id,
                         type: 'POST',

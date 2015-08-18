@@ -12,7 +12,7 @@ class SharesController < ApplicationController
                 if params[:tel].nil? or params[:tel].empty?
                         index
                 else
-                        @shares = Share.where(tel: params[:tel])
+                        @shares = Share.where("tel = ? or name = ?", params[:tel], params[:tel])
                 end
                 @tel = params[:tel]
                 render :index

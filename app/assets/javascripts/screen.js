@@ -23,8 +23,15 @@
                         $(image).attr("duration", data.duration);
                 };
 
-                self.registerLoadEvent = function(callback) {
-                        $(image).one("load", callback);
+                self.registerLoadEvent = function(callback, reload) {
+                        $(image).bind("load", callback).bind("error", function() {
+                                $(this).unbind("load", callback);
+                                reload();
+                        });
+                };
+
+                self.unbindLoadEvent = function(callback) {
+                        $(image).unbind("load", callback);
                 };
 
                 return self;
@@ -34,6 +41,11 @@
                 var self = {};
                 var f = item(id);
                 var b = item(id+2);
+                var image_load_time;
+
+                self.alive = function() {
+                        return new Date() - image_load_time < 60000;
+                };
 
                 var log = function(data) {
                         console.log(id + " " + data);
@@ -41,6 +53,7 @@
 
                 var load = function(data) {
                         log("started to load.");
+                        image_load_time = new Date();
                         $.ajax({
                                 url: "/admin/shares/screen.json",
                                 type: 'GET',
@@ -51,11 +64,7 @@
                                 success: function(data) {
                                         log("data loaded.");
                                         b.setContent(data);
-                                        b.registerLoadEvent(imageLoad);
-                                        swapFrontBack();
-                                        setPosition();
-                                        setZindex();
-                                        log("Position & Index reset");
+                                        b.registerLoadEvent(imageLoad, self.reload);
                                 },
                                 error: function() {
                                         self.register();
@@ -81,14 +90,24 @@
 
                 var imageLoad = function() {
                         log("Image loaded");
+                        swapFrontBack();
+                        setPosition();
+                        setZindex();
+                        log("Position & Index reset");
                         move();
                         self.register();
+                        $(this).unbind();
                 };
 
                 var move = function() {
                         f.section.animate({
                                 top: "600px"
                         }, 1000);
+                };
+
+                self.reload = function() {
+                        b.unbindLoadEvent(imageLoad);
+                        load();
                 };
 
                 self.register = function() {
@@ -108,9 +127,22 @@
         var share1 = share(1);
         var share2 = share(2);
 
+        var dog = function() {
+                setTimeout(function(){
+                        if (!share1.alive()) {
+                                share1.reload();
+                        }
+                        if (!share2.alive()) {
+                                share2.reload();
+                        }
+                        dog();
+                }, 30000);
+        };
+
         window.onload = function() {
                 share1.register();
                 share2.register();
+                dog();
         };
 
 })();

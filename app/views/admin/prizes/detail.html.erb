@@ -4,7 +4,7 @@
     <% if @prize.nil? || @prize.prize.nil? %>
       <p class="bg-danger" style="padding: 16px;">没有查到手机号（<%=@tel%>）的中奖记录</p>
     <% else %>
-      <form action="/admin/prizes/claim/<%=@prize.id%>}" method="POST">
+      <form action="/admin/prizes/claim/<%=@prize.id%>" method="POST">
         <div class="form-horizontal">
           <div class="form-group">
             <label class="col-sm-2 control-label">手机号码</label>

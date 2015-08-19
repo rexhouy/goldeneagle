@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Admin::SharesController < AdminController
 
         def screen
@@ -52,11 +53,13 @@ class Admin::SharesController < AdminController
 
         private
         def pass
+                @sss = "<p class='bg-success' style='padding: 10px 20px;'><span class='glyphicon glyphicon-ok'></span> 审核通过</p>"
                 update_status params[:id], Share.statuses[:passed]
                 PlaylistService.add(@share)
         end
 
         def reject
+                @sss = "<p class='bg-danger' style='padding: 10px 20px;'><span class='glyphicon glyphicon-remove'></span> 审核拒绝</p>"
                 update_status params[:id], Share.statuses[:rejected]
                 PlaylistService.remove(@share)
         end

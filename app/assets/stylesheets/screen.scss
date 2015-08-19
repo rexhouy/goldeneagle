@@ -19,11 +19,17 @@ section {
 }
 .cm-bottom {
     position: absolute;
-    top:338px;
+    top:333px;
     left:60px;
     width:300px;
     height:198px;
     background: image_url("screen2.png");
+}
+.cm-bottom-text {
+    position: absolute;
+    top:533px;
+    left:265px;
+    font-size: 12px;
 }
 section {
     vertical-align: top;

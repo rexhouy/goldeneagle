@@ -25,6 +25,10 @@ class SharesController < ApplicationController
 
         # GET /shares/new
         def new
+                accesslog = AccessLog.new
+                accesslog.app = "shares"
+                accesslog.ip = request.env["REMOTE_ADDR"]
+                accesslog.save
                 @share = Share.new
         end
 

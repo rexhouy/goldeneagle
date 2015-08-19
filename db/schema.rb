@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150814054728) do
+ActiveRecord::Schema.define(version: 20150819082802) do
+
+  create_table "access_logs", force: :cascade do |t|
+    t.string   "app",        limit: 255
+    t.string   "ip",         limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "pools", force: :cascade do |t|
     t.integer  "count",      limit: 4, null: false
@@ -23,7 +30,7 @@ ActiveRecord::Schema.define(version: 20150814054728) do
     t.string   "name",       limit: 255
     t.string   "prize",      limit: 255
     t.string   "tel",        limit: 255, null: false
-    t.string   "status",     limit: 255
+    t.integer  "status",     limit: 4
     t.datetime "claim_time"
     t.string   "code",       limit: 255
     t.datetime "created_at",             null: false

@@ -3,6 +3,10 @@ require "securerandom"
 class LotteryController < ApplicationController
 
         def index
+                accesslog = AccessLog.new
+                accesslog.app = "lottery"
+                accesslog.ip = request.env["REMOTE_ADDR"]
+                accesslog.save
                 render layout: false
         end
 

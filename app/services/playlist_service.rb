@@ -47,8 +47,8 @@ class PlaylistService
                 end
                 @@cursor += 1
                 if @@cursor >= @@playlist.length
-                        @@cursor = @@playlist.length - 10
-                        @@cursor = 0 if @@cursor < 0
+                        # @@cursor = @@playlist.length - 10
+                        @@cursor = 0 # if @@cursor < 0
                 end
                 share = @@playlist[@@cursor]
                 share.duration ||= @@duration unless share.nil?

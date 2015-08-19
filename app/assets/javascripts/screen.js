@@ -9,6 +9,8 @@
                 var image = "#image_"+id;
                 var duration = "#duration_"+id;
 
+                self.id = id;
+
                 self.section = $(section);
 
                 self.duration = function() {
@@ -87,10 +89,6 @@
 
                 var imageLoad = function() {
                         log("Image loaded");
-                        swapFrontBack();
-                        setPosition();
-                        setZindex();
-                        log("Position & Index reset");
                         move();
                         self.register();
                         $(this).unbind();
@@ -99,7 +97,12 @@
                 var move = function() {
                         f.section.animate({
                                 top: "600px"
-                        }, 1000);
+                        }, 1000, function() {
+                                swapFrontBack();
+                                setPosition();
+                                setZindex();
+                                log("Position & Index reset");
+                        });
                 };
 
                 self.reload = function() {
